@@ -30,6 +30,12 @@ namespace HajosTeszt
             app.UseStaticFiles();
             app.UseRouting();
 
+            DefaultFilesOptions options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("cv.html");
+            app.UseDefaultFiles(options);
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
@@ -38,11 +44,6 @@ namespace HajosTeszt
                 });
             });
 
-            DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("cv.html");
-            app.UseDefaultFiles(options);
-            app.UseStaticFiles();
         }
     }
 }
