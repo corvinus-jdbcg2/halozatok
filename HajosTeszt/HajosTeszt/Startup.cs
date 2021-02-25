@@ -27,10 +27,7 @@ namespace HajosTeszt
             }
 
             app.UseHttpsRedirection();
-
-            app.UseDefaultFiles();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -40,6 +37,12 @@ namespace HajosTeszt
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            DefaultFilesOptions options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("cv.html");
+            app.UseDefaultFiles(options);
+            app.UseStaticFiles();
         }
     }
 }
