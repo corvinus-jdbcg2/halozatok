@@ -1,0 +1,89 @@
+﻿/* {
+    box-sizing: border-box;
+}*/
+
+body {
+    color: #D5D5D5;
+    background-color: black;
+}
+
+div {
+    padding: 30px;
+}
+
+h1.nevem {
+    display: inline;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h3 {
+    font-size: 24px;
+    text-align: center;
+}
+
+img {
+    border-radius: 15px;
+    width: 16%;
+    height: auto;
+}
+
+a {
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #D5D5D5;
+    color: black;
+    text-align: center;
+}
+
+    a:hover {
+        background-color: #4CF90C;
+    }
+
+#szadatok, #munka, #vege {
+    text-align: left;
+    background-color: #4D4E4D;
+}
+
+#tanulmanyok, #listak {
+    text-align: left;
+    background-color: #D5D5D5;
+    color: #4D4E4D;
+}
+
+/*#listak {
+    display: flex;
+    color: #4D4E4D;
+}*/
+
+span.dolt {
+    font-style: italic;
+}
+
+span.fel {
+    font-weight: bold;
+}
+
+#fejlec {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#link {
+    display: flex;
+}
+
+    #link a {
+        text-decoration: none;
+        color: black;
+        justify-content: stretch;
+        align-items: center;
+    }
