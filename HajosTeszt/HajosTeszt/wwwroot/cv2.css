@@ -1,6 +1,6 @@
-﻿/* {
+﻿* {
     box-sizing: border-box;
-}*/
+}
 
 body {
     color: #D5D5D5;
@@ -58,10 +58,18 @@ a {
     color: #4D4E4D;
 }
 
-/*#listak {
+#listak {
     display: flex;
-    color: #4D4E4D;
-}*/
+    color: #D5D5D5;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#el, #ma {
+    background-color: #4D4E4D;
+    padding: 5px;
+    margin: 20px;
+}
 
 span.dolt {
     font-style: italic;
@@ -69,6 +77,10 @@ span.dolt {
 
 span.fel {
     font-weight: bold;
+}
+
+.masodik {
+    font-style: italic;
 }
 
 #fejlec {
@@ -79,11 +91,43 @@ span.fel {
 
 #link {
     display: flex;
+    justify-content: center;
 }
 
     #link a {
         text-decoration: none;
         color: black;
-        justify-content: stretch;
         align-items: center;
     }
+
+@media screen and (min-width: 655px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        max-width: 1500px;
+        margin: auto;
+    }
+
+    #listak {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    #vege {
+        order: -1;
+    }
+
+    #el, #ma {
+        background-color: #4D4E4D;
+        padding: 30px;
+        margin: 20px;
+    }
+
+    .infokrolam {
+        display: flex;
+        text-align: left;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
