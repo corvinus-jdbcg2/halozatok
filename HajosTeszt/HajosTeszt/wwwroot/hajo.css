@@ -111,3 +111,13 @@ div {
         order: 1;
     }
 }
+
+.jó {
+    background-color: darkgreen;
+    color: white;
+}
+
+.rossz {
+    background-color: lightcoral;
+    color: white;
+}
