@@ -1,20 +1,17 @@
-﻿var kérdések;
-var kérdésSorszám = 0;
-
-function letöltés() {
-    fetch('/questions.json')
-    .then(response => response.json())
-    .then(data => letöltésBefejeződött(data));
-}
+﻿var kérdés;
+const ELSO = '/questions/first'
+const UTOLSO = '/questions/last'
+const KÖV = '/questions/next'
+const ELŐZŐ = '/questions/prev'
 
 function letöltésBefejeződött(d) {
     console.log("Sikeres letöltés")
     console.log(d)
-    kérdések = d;
+    kérdés = d;
     kérdésMegjelenítés(0);
 }
 
-var kérdésMegjelenítés = function (kérdésSzáma) {
+var kérdésMegjelenítés = function () {
 
     let kérdés_szöveg = document.getElementById("kérdés_szöveg");
     let kép = document.getElementById("kép1");
@@ -22,21 +19,40 @@ var kérdésMegjelenítés = function (kérdésSzáma) {
     let válasz2 = document.getElementById("válasz2");
     let válasz3 = document.getElementById("válasz3");
 
-    kérdés_szöveg.innerHTML = kérdések[kérdésSzáma].questionText
-    if (kérdések[kérdésSzáma].image !== "") {
-        kép.src = "https://szoft1.comeback.hu/hajo/" + kérdések[kérdésSzáma].image;
+    kérdés_szöveg.innerHTML = kérdés.questionText
+
+    if (kérdés.image != "") {
+        kép.src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
     }
     else {
         kép.src = "";
     }
-    válasz1.innerText = kérdések[kérdésSzáma].answer1
-    válasz2.innerText = kérdések[kérdésSzáma].answer2
-    válasz3.innerText = kérdések[kérdésSzáma].answer3
+
+    válasz1.innerText = kérdés.answer1
+    válasz2.innerText = kérdés.answer2
+    válasz3.innerText = kérdés.answer3
+}
+
+function kérdésBetöltés(utvonal, id = null) {
+    var url;
+    if (id) url = utvonal + '/' + id;
+    else url = utvonal;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then(data => letöltésBefejeződött(data));
 }
 
 window.onload = () => {
 
-    letöltés();
+    kérdésBetöltés(ELSO);
 
 
     document.getElementById("vissza").onclick = () => {
@@ -49,14 +65,7 @@ window.onload = () => {
         document.getElementById("válasz2").style.pointerEvents = 'auto';
         document.getElementById("válasz3").style.pointerEvents = 'auto';
 
-        if (kérdésSorszám == 0) {
-            kérdésSorszám = kérdések.length - 1
-            kérdésMegjelenítés(kérdésSorszám);
-        }
-        else {
-            kérdésMegjelenítés(--kérdésSorszám);
-        }
-
+        kérdésBetöltés(ELŐZŐ, kérdés.questionId);
     }
 
     document.getElementById("elore").onclick = () => {
@@ -69,25 +78,18 @@ window.onload = () => {
         document.getElementById("válasz2").style.pointerEvents = 'auto';
         document.getElementById("válasz3").style.pointerEvents = 'auto';
 
-        if (kérdésSorszám == kérdések.length - 1) {
-            kérdésSorszám = 0;
-            kérdésMegjelenítés(kérdésSorszám);
-        }
-        else {
-            kérdésMegjelenítés(++kérdésSorszám);
-        }
-
+        kérdésBetöltés(KÖV, kérdés.questionId);
     }
 
 
     document.getElementById("válasz1").onclick = () => {
 
-        if (kérdések[kérdésSorszám].correctAnswer == 1) {
+        if (kérdés.correctAnswer == 1) {
             document.getElementById("válasz1").style.background = "darkgreen";
         }
         else {
             document.getElementById("válasz1").style.background = "lightcoral";
-            document.getElementById("válasz" + kérdések[kérdésSorszám].correctAnswer).style.background = "darkgreen";
+            document.getElementById("válasz" + kérdés.correctAnswer).style.background = "darkgreen";
         }
 
         document.getElementById("válasz1").style.pointerEvents = 'none';
@@ -98,12 +100,12 @@ window.onload = () => {
 
     document.getElementById("válasz2").onclick = () => {
 
-        if (kérdések[kérdésSorszám].correctAnswer == 2) {
+        if (kérdés.correctAnswer == 2) {
             document.getElementById("válasz2").style.background = "darkgreen";
         }
         else {
             document.getElementById("válasz2").style.background = "lightcoral";
-            document.getElementById("válasz" + kérdések[kérdésSorszám].correctAnswer).style.background = "darkgreen";
+            document.getElementById("válasz" + kérdés.correctAnswer).style.background = "darkgreen";
         }
 
         document.getElementById("válasz1").style.pointerEvents = 'none';
@@ -113,12 +115,12 @@ window.onload = () => {
 
     document.getElementById("válasz3").onclick = () => {
 
-        if (kérdések[kérdésSorszám].correctAnswer == 3) {
+        if (kérdés.correctAnswer == 3) {
             document.getElementById("válasz3").style.background = "darkgreen";
         }
         else {
             document.getElementById("válasz3").style.background = "lightcoral";
-            document.getElementById("válasz" + kérdések[kérdésSorszám].correctAnswer).style.background = "darkgreen";
+            document.getElementById("válasz" + kérdés.correctAnswer).style.background = "darkgreen";
         }
 
         document.getElementById("válasz1").style.pointerEvents = 'none';
