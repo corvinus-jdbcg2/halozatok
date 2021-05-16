@@ -13,11 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    //for (let i = 0; i < questionsInHotList; i++) {
-    //    kerdesBetoltes(nextQuestion, i);
-    //    nextQuestion++;
-    //}
-
     fetch("questions/count")
         .then(result => result.text())
         .then(n => { numberOfQuestions = parseInt(n) })
@@ -37,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextQuestion = parseInt(localStorage.getItem("nextQuestion"));
     }
 
-    if (hotList.length === 0) {
+    if (!localStorage.getItem("hotList")) {
         for (let i = 0; i < questionsInHotList; i++) {
             kerdesBetoltes(nextQuestion, i);
             nextQuestion++;
@@ -73,6 +68,9 @@ function kerdesBetoltes(questionNumber, destination) {
 }
 
 function kerdesMegjelenites() {
+
+    
+
     let kerdes = hotList[displayedQuestion].question;
     document.getElementById("kérdés_szöveg").innerText = kerdes.questionText;
     document.getElementById("válasz1").innerText = kerdes.answer1;
